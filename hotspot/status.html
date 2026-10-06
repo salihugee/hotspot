@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>Deens Hotspot &gt; status</title>
+$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+body {
+	background: #f2f6fb;
+	color: #17345b;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 28px 14px;
+}
+a, a:link, a:visited, a:active { color: #0878d1; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { border: 0; max-width: 100%; height: auto; }
+input[type="submit"] {
+	background: #0878d1;
+	border: 0;
+	border-radius: 7px;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 11px 24px;
+}
+.page-shell { max-width: 440px; margin: 0 auto; }
+.card {
+	background: #ffffff;
+	border: 1px solid #d8e4f0;
+	border-radius: 14px;
+	box-shadow: 0 8px 28px rgba(18, 53, 94, 0.10);
+	padding: 28px 26px 24px;
+	text-align: center;
+}
+.brand { display: inline-block; margin: 0 auto 18px; }
+.welcome { color: #17345b; font-size: 20px; font-weight: bold; margin: 0 0 18px; }
+.details { border-collapse: collapse; margin: 0 auto 20px; text-align: left; width: 100%; }
+.details td { border-bottom: 1px solid #e7eef6; font-size: 13px; padding: 11px 8px; }
+.details tr:last-child td { border-bottom: 0; }
+.details td:first-child { color: #60758d; font-weight: bold; }
+.details td:last-child { color: #17345b; text-align: right; }
+.status-note { color: #158e55; font-weight: bold; }
+.status-note a { color: #0878d1; text-decoration: underline; }
+@media (max-width: 360px) {
+	.card { padding: 22px 16px; }
+	.details td { padding: 9px 5px; }
+}
+</style>
+<script language="JavaScript">
+<!--
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+</head>
+<body bottommargin="0" topmargin="0" leftmargin="0" rightmargin="0"
+$(if advert-pending == 'yes')
+	onLoad="openAdvert()"
+$(endif)
+>
+<div class="page-shell">
+	<div class="card">
+		<a class="brand" href="http://www.mikrotik.com" target="_blank"><img src="/img/logobottom.png" alt="mikrotik" /></a>
+		<form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+$(if login-by == 'trial')
+			<div class="welcome">Welcome trial user!</div>
+$(elif login-by != 'mac')
+			<div class="welcome">Welcome $(username)!</div>
+$(endif)
+			<table class="details">
+				<tr><td>IP address:</td><td>$(ip)</td></tr>
+				<tr><td>bytes up/down:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+$(if session-time-left)
+				<tr><td>connected / left:</td><td>$(uptime) / $(session-time-left)</td></tr>
+$(else)
+				<tr><td>connected:</td><td>$(uptime)</td></tr>
+$(endif)
+$(if blocked == 'yes')
+				<tr><td>status:</td><td><span class="status-note"><a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</span></td></tr>
+$(elif refresh-timeout)
+				<tr><td>status refresh:</td><td>$(refresh-timeout)</td></tr>
+$(endif)
+			</table>
+<!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+<button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+<!-- end of user manager link -->
+$(if login-by-mac != 'yes')
+			<input type="submit" value="log off">
+$(endif)
+		</form>
+	</div>
+</div>
+</body>
+</html>

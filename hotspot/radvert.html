@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Deens Hotspot &gt; advertisement</title>
+<meta http-equiv="refresh" content="2; url=$(link-orig)">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+body {
+	background: #f2f6fb;
+	color: #17345b;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 28px 14px;
+}
+a, a:link, a:visited, a:active { color: #0878d1; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { border: 0; max-width: 100%; height: auto; }
+.page-shell { max-width: 440px; margin: 8vh auto; }
+.card {
+	background: #ffffff;
+	border: 1px solid #d8e4f0;
+	border-radius: 14px;
+	box-shadow: 0 8px 28px rgba(18, 53, 94, 0.10);
+	padding: 28px 26px 24px;
+	text-align: center;
+}
+.brand { display: inline-block; margin: 0 auto 20px; }
+.message { color: #17345b; font-size: 17px; font-weight: bold; line-height: 1.5; margin-bottom: 14px; }
+.fallback { color: #60758d; line-height: 1.5; }
+.fallback a { color: #0878d1; font-weight: bold; }
+@media (max-width: 360px) {
+	.card { padding: 22px 16px; }
+}
+</style>
+<script language="JavaScript">
+<!--
+    var popup = '';
+    function openOrig() {
+	if (window.focus) popup.focus();
+	location.href = '$(link-orig)';
+    }
+    function openAd() {
+	location.href = '$(link-redirect)';
+    }
+    function openAdvert() {
+	if (window.name != 'hotspot_advert') {
+		popup = open('$(link-redirect)', 'hotspot_advert', '');
+		setTimeout("openOrig()", 1000);
+		return;
+	}
+	setTimeout("openAd()", 1000);
+    }
+//-->
+</script>
+</head>
+<body onLoad="openAdvert()">
+<div class="page-shell">
+	<div class="card">
+		<a class="brand" href="http://www.mikrotik.com" target="_blank"><img src="/img/logobottom.png" alt="mikrotik" /></a>
+		<div class="message">Advertisement</div>
+		<div class="fallback">If nothing happens, open <a href="$(link-redirect)" target="hotspot_advert">the advertisement</a> manually.</div>
+	</div>
+</div>
+</body>
+</html>
